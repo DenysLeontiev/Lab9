@@ -1,6 +1,4 @@
 ﻿#include <iostream>
-#include <algorithm>
-#include <list>
 
 using namespace std;
 
@@ -10,6 +8,7 @@ struct List
 	List* next;
 };
 
+int setValue(const char v[]);
 void Init(List** begin, int size);
 void PrintList(List* list);
 void PrintPrimeNumbers(List* head);
@@ -17,10 +16,15 @@ void PrintPrimeNumbers(List* head);
 int main()
 {
 	int size = 0;
-	cout << "EnterSize: "; cin >> size;
+	while (size <= 1)
+	{
+		cout << "size must be greater than 1" << endl;
+		size = setValue("size");
+	}
 	List* begin = NULL;
 
 	Init(&begin, size);
+	cout << "List: " << endl;
 	PrintList(begin);
 	cout << "Prime numbers: " << endl;
 	PrintPrimeNumbers(begin);
@@ -30,12 +34,12 @@ void Init(List** begin, int size)
 {
 	*begin = new List;
 
-	(*begin)->number = size;
+	(*begin)->number = 2;
 	(*begin)->next = NULL;
 
 	List* end = *begin;
 
-	for (int i = 2; i <= size * size; i++)
+	for (int i = 3; i <= size * size; i++)
 	{
 		end->next = new List;
 		end = end->next;
@@ -57,7 +61,7 @@ void PrintList(List* begin)
 
 void PrintPrimeNumbers(List* head)
 {
-	List* last = head->next; 
+	List* last = head; 
 	while (last)
 	{
 		List** current = &last->next; 
@@ -77,6 +81,28 @@ void PrintPrimeNumbers(List* head)
 		cout << last->number << endl;
 		last = last->next;
 	}
+}
+
+int setValue(const char v[])
+{
+	int error;
+	int value;
+	do
+	{
+		error = 0;
+		cout << "Please enter " << v << " = ";
+		cin >> value;
+		if (cin.fail())
+		{
+			cout.clear();
+			cout << "Please enter a valid number" << endl;
+			error = 1;
+			cin.clear();
+			cin.ignore(80, '\n');
+		}
+	} while (error == 1);
+
+	return value;
 }
 
 
