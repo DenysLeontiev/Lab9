@@ -11,7 +11,7 @@ struct List
 int setValue(const char v[]);
 void Init(List** begin, int size);
 void PrintList(List* list);
-void PrintPrimeNumbers(List* head);
+void PrintPrimeNumbers(List* head, int size);
 
 int main()
 {
@@ -27,7 +27,7 @@ int main()
 	cout << "List: " << endl;
 	PrintList(begin);
 	cout << "Prime numbers: " << endl;
-	PrintPrimeNumbers(begin);
+	PrintPrimeNumbers(begin, size);
 }
 
 void Init(List** begin, int size)
@@ -59,7 +59,7 @@ void PrintList(List* begin)
 	}
 }
 
-void PrintPrimeNumbers(List* head)
+void PrintPrimeNumbers(List* head, int size)
 {
 	List* last = head; 
 	while (last)
@@ -78,7 +78,10 @@ void PrintPrimeNumbers(List* head)
 				current = &(*current)->next;
 			}
 		}
-		cout << last->number << endl;
+		if (last->number >= size)
+		{
+			cout << last->number << endl;
+		}
 		last = last->next;
 	}
 }
